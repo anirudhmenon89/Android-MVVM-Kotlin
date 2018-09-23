@@ -11,7 +11,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CarListViewModel : BaseViewModel<BaseNavigator>() {
+class CarListViewModel : BaseViewModel<CarListNavigator>() {
 
     var carDetails = ObservableArrayList<CarInfo>()
 
@@ -31,9 +31,14 @@ class CarListViewModel : BaseViewModel<BaseNavigator>() {
         })
     }
 
+    fun openMapView() {
+        navigator.get()!!.openCarDetail()
+    }
+
     private fun setCarDetails(carDetail: CarDetails?) {
         carDetails.clear()
         carDetails.addAll(carDetail!!.placemarks)
     }
+
 }
 

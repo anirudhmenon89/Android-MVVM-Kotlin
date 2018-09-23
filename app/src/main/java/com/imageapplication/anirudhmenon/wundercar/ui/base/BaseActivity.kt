@@ -9,11 +9,11 @@ import android.widget.ProgressBar
 import com.imageapplication.anirudhmenon.wundercar.ui.carlist.CarListNavigator
 import dagger.android.AndroidInjection
 
-abstract class BaseActivity<DB : ViewDataBinding, VM : BaseViewModel<BaseNavigator>> : AppCompatActivity() {
+abstract class BaseActivity<DB : ViewDataBinding, VM : BaseViewModel<out BaseNavigator>> : AppCompatActivity() {
     private lateinit var progressBar: ProgressBar
+
     private lateinit var viewDataBinding: DB
     private lateinit var viewModel: VM
-
 
     /**
      * Override this method to set binding variable

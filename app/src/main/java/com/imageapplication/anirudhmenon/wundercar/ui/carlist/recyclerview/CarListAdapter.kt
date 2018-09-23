@@ -9,9 +9,10 @@ import com.imageapplication.anirudhmenon.wundercar.databinding.ItemCarListBindin
 import com.imageapplication.anirudhmenon.wundercar.ui.base.BaseViewHolder
 import com.imageapplication.anirudhmenon.wundercar.ui.data.model.api.CarInfo
 
-class CarListAdapter(carList: ArrayList<CarInfo>) : RecyclerView.Adapter<CarListAdapter.CarListHolder>() {
+class CarListAdapter(carList: ArrayList<CarInfo>, listener: CarListListener) : RecyclerView.Adapter<CarListAdapter.CarListHolder>() {
 
-    private var carList: ArrayList<CarInfo>? = carList
+    private var carList = carList
+    private var listener = listener
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): CarListHolder {
         val blogViewBinding = ItemCarListBinding.inflate(LayoutInflater.from(parent!!.getContext()),
@@ -26,13 +27,11 @@ class CarListAdapter(carList: ArrayList<CarInfo>) : RecyclerView.Adapter<CarList
     }
 
     /**
-     * Call this method if you need to change data at runtime
+     * The inner ViewHolder class for the recycler view.
+     * This is responsible to bind the ViewModel to the item_car_list layout
+     * and gives call backs when user clicks on a row
      */
-    fun setData(carList: ArrayList<CarInfo>) {
-        this.carList = carList
-        notifyDataSetChanged()
-    }
-
+    // region  ViewHolderClass
     inner class CarListHolder: BaseViewHolder, CarListItemViewModel.CarListItemClick {
 
         private lateinit var carItemViewModel : CarListItemViewModel
@@ -50,8 +49,15 @@ class CarListAdapter(carList: ArrayList<CarInfo>) : RecyclerView.Adapter<CarList
         }
 
         override fun onItemClick(view: View, viewModel: CarListItemViewModel) {
-            Log.i("TAG,", "User clicks on item")
+            listener.onClick(view, viewModel)
         }
 
     }
+    // endregion
+
+    // region Activity-Adapter Click interface
+    interface CarListListener {
+        fun onClick(view: View, viewModel: CarListItemViewModel)
+    }
+    // endregion
 }
