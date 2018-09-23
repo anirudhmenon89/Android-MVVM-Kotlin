@@ -11,7 +11,9 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.imageapplication.anirudhmenon.wundercar.BR
 import com.imageapplication.anirudhmenon.wundercar.R
 import com.imageapplication.anirudhmenon.wundercar.databinding.ActivityCarMapBinding
@@ -29,8 +31,6 @@ class CarMapActivity: BaseActivity<ActivityCarMapBinding, CarMapViewModel>(), On
 
     private lateinit var carMapBinding: ActivityCarMapBinding
 
-    private lateinit var googleMap: GoogleMap
-
     companion object {
         /**
          * Use this method if you need to start CarMapActivity from anywhere
@@ -41,7 +41,6 @@ class CarMapActivity: BaseActivity<ActivityCarMapBinding, CarMapViewModel>(), On
             return intent
         }
     }
-
 
     //region Activity lifecycle
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -110,14 +109,21 @@ class CarMapActivity: BaseActivity<ActivityCarMapBinding, CarMapViewModel>(), On
     //endregion
 
     //region Overridden methods from OnMapReadyCallback
-    override fun onMapReady(gm: GoogleMap?) {
-        if (gm != null) {
-            this.googleMap = gm
-            googleMap.setMinZoomPreference(12F)
+    override fun onMapReady(googleMap: GoogleMap?) {
+        if (googleMap != null) {
+
             var ny = LatLng(40.7143528, -74.0059731)
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(ny))
+            val marker = googleMap.addMarker(
+                    MarkerOptions()
+                            .position(ny)
+                            .title("New York"))
+            marker.isDraggable = true
+            marker.isVisible = true
+
+            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(ny, 12F))
         }
 
     }
     //endregion
 }
+
