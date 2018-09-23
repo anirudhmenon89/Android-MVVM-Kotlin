@@ -21,6 +21,7 @@ class CarListActivity : BaseActivity<ActivityCarListBinding, CarListViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initVars()
+
         carListViewModel.getListOfCars()
 
         setListAdapter()

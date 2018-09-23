@@ -17,11 +17,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.imageapplication.anirudhmenon.wundercar.ui.customviews.ActionBar
-            android:id="@+id/action_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
         <ProgressBar
             android:id="@+id/progress_bar"
             android:layout_width="wrap_content"
@@ -38,7 +33,6 @@
             android:scrollbars="horizontal"
             app:data="@{viewModel.carDetails}"
             tools:listitem="@layout/item_car_list"
-            android:layout_below="@id/action_bar"
             android:visibility="@{viewModel.isLoading ? View.GONE : View.VISIBLE}" />
 
     </RelativeLayout>

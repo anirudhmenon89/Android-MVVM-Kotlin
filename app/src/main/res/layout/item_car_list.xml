@@ -4,17 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
-            type="com.imageapplication.anirudhmenon.wundercar.ui.data.model.api.CarInfo" />
+            type="com.imageapplication.anirudhmenon.wundercar.ui.carlist.CarListItemViewModel" />
 
     </data>
 
     <TextView
         android:id="@+id/tv_car_name"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="20dp"
         tools:text="Test name"
         android:text="@{viewModel.name}"/>
 </layout>
