@@ -51,7 +51,7 @@ class CarListAdapter(carList: ArrayList<CarInfo>) : RecyclerView.Adapter<CarList
             viewBinding.executePendingBindings()
         }
 
-        override fun onItemClick() {
+        override fun onItemClick(view: View, viewModel: CarListItemViewModel) {
             Log.i("TAG,", "User clicks on item")
         }
 

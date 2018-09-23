@@ -1,6 +1,7 @@
 package com.imageapplication.anirudhmenon.wundercar.ui.carlist
 
 import android.databinding.ObservableField
+import android.view.View
 import com.imageapplication.anirudhmenon.wundercar.ui.data.model.api.CarInfo
 
 class CarListItemViewModel {
@@ -19,11 +20,11 @@ class CarListItemViewModel {
 
     }
 
-    fun onItemClick() {
-        clickListener.onItemClick()
+    fun onItemClick(view: View, viewModel: CarListItemViewModel) {
+        clickListener.onItemClick(view, viewModel)
     }
 
     interface CarListItemClick {
-        fun onItemClick()
+        fun onItemClick(view: View, viewModel: CarListItemViewModel)
     }
 }

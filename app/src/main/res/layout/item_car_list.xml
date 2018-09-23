@@ -16,6 +16,6 @@
         android:layout_height="wrap_content"
         android:padding="20dp"
         tools:text="Test name"
-        android:onClick="@{() -> viewModel.onItemClick()}"
+        android:onClick="@{(view) -> viewModel.onItemClick(view, viewModel)}"
         android:text="@{viewModel.name}"/>
 </layout>
