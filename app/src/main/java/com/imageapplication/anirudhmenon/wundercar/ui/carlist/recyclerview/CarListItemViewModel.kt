@@ -1,4 +1,4 @@
-package com.imageapplication.anirudhmenon.wundercar.ui.carlist
+package com.imageapplication.anirudhmenon.wundercar.ui.carlist.recyclerview
 
 import android.databinding.ObservableField
 import android.view.View

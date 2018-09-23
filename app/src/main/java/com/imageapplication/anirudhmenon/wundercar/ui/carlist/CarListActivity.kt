@@ -8,6 +8,7 @@ import com.imageapplication.anirudhmenon.wundercar.BR
 import com.imageapplication.anirudhmenon.wundercar.R
 import com.imageapplication.anirudhmenon.wundercar.databinding.ActivityCarListBinding
 import com.imageapplication.anirudhmenon.wundercar.ui.base.BaseActivity
+import com.imageapplication.anirudhmenon.wundercar.ui.carlist.recyclerview.CarListAdapter
 import com.imageapplication.anirudhmenon.wundercar.ui.utils.ViewModelProviderFactory
 
 class CarListActivity : BaseActivity<ActivityCarListBinding, CarListViewModel>(), CarListNavigator {

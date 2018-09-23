@@ -1,15 +1,13 @@
-package com.imageapplication.anirudhmenon.wundercar.ui.carlist
+package com.imageapplication.anirudhmenon.wundercar.ui.carlist.recyclerview
 
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.imageapplication.anirudhmenon.wundercar.R
 import com.imageapplication.anirudhmenon.wundercar.databinding.ItemCarListBinding
 import com.imageapplication.anirudhmenon.wundercar.ui.base.BaseViewHolder
 import com.imageapplication.anirudhmenon.wundercar.ui.data.model.api.CarInfo
-import kotlinx.android.synthetic.main.item_car_list.view.*
 
 class CarListAdapter(carList: ArrayList<CarInfo>) : RecyclerView.Adapter<CarListAdapter.CarListHolder>() {
 
