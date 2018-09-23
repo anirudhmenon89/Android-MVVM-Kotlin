@@ -2,6 +2,7 @@ package com.imageapplication.anirudhmenon.wundercar.ui.carlist
 
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
@@ -12,6 +13,7 @@ import com.imageapplication.anirudhmenon.wundercar.databinding.ActivityCarListBi
 import com.imageapplication.anirudhmenon.wundercar.ui.base.BaseActivity
 import com.imageapplication.anirudhmenon.wundercar.ui.carlist.recyclerview.CarListAdapter
 import com.imageapplication.anirudhmenon.wundercar.ui.carlist.recyclerview.CarListItemViewModel
+import com.imageapplication.anirudhmenon.wundercar.ui.carmap.CarMapActivity
 import com.imageapplication.anirudhmenon.wundercar.ui.utils.ViewModelProviderFactory
 
 class CarListActivity : BaseActivity<ActivityCarListBinding, CarListViewModel>(), CarListNavigator, CarListAdapter.CarListListener {
@@ -70,7 +72,7 @@ class CarListActivity : BaseActivity<ActivityCarListBinding, CarListViewModel>()
 
     //region CarListNavigator overridden methods
     override fun openCarDetail() {
-        Log.i("OPEN MAP", "Open map click")
+        startActivity(CarMapActivity.newIntent(this))
     }
 
     override fun handleError(throwable: Throwable) {
