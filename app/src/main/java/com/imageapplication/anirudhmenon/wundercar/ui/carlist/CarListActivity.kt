@@ -37,7 +37,6 @@ class CarListActivity : BaseActivity<ActivityCarListBinding, CarListViewModel>()
 
     //endregion
 
-
     //region BaseActivity overridden methods
 
     override fun getBindingVariable(): Int {
@@ -56,7 +55,6 @@ class CarListActivity : BaseActivity<ActivityCarListBinding, CarListViewModel>()
 
     //endregion
 
-
     //region class functions
 
     private fun initVars() {
@@ -73,7 +71,6 @@ class CarListActivity : BaseActivity<ActivityCarListBinding, CarListViewModel>()
 
     //endregion
 
-
     //region CarListAdapter.CarListListener overridden methods
 
     override fun onClick(view: View, viewModel: CarListItemViewModel) {
@@ -82,7 +79,6 @@ class CarListActivity : BaseActivity<ActivityCarListBinding, CarListViewModel>()
     }
 
     //endregion
-
 
     //region CarListNavigator overridden methods
 
