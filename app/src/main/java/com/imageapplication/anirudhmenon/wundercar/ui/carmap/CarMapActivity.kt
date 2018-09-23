@@ -113,18 +113,8 @@ class CarMapActivity: BaseActivity<ActivityCarMapBinding, CarMapViewModel>(), On
     //region Overriden methods from OnMapReadyCallback
     override fun onMapReady(googleMap: GoogleMap?) {
         if (googleMap != null) {
-
             this.googleMap = googleMap
             carMapViewModel.parseMarkers()
-//            var ny = LatLng(40.7143528, -74.0059731)
-//            val marker = googleMap.addMarker(
-//                    MarkerOptions()
-//                            .position(ny)
-//                            .title("New York"))
-//            marker.isDraggable = true
-//            marker.isVisible = true
-//
-//            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(ny, 12F))
         }
     }
     //endregion
