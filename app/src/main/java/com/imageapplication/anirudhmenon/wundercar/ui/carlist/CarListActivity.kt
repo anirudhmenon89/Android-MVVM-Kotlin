@@ -2,10 +2,8 @@ package com.imageapplication.anirudhmenon.wundercar.ui.carlist
 
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.View
 import com.imageapplication.anirudhmenon.wundercar.BR
 import com.imageapplication.anirudhmenon.wundercar.R
@@ -16,7 +14,8 @@ import com.imageapplication.anirudhmenon.wundercar.ui.carlist.recyclerview.CarLi
 import com.imageapplication.anirudhmenon.wundercar.ui.carmap.CarMapActivity
 import com.imageapplication.anirudhmenon.wundercar.ui.utils.ViewModelProviderFactory
 
-class CarListActivity : BaseActivity<ActivityCarListBinding, CarListViewModel>(), CarListNavigator, CarListAdapter.CarListListener {
+class CarListActivity : BaseActivity<ActivityCarListBinding, CarListViewModel>(),
+        CarListNavigator, CarListAdapter.CarListListener {
 
     private lateinit var carListViewModel: CarListViewModel
 
@@ -24,7 +23,9 @@ class CarListActivity : BaseActivity<ActivityCarListBinding, CarListViewModel>()
 
     private lateinit var viewModelFactory: ViewModelProvider.Factory
 
+
     //region Activity lifecycle overridden methods
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initVars()
@@ -33,9 +34,12 @@ class CarListActivity : BaseActivity<ActivityCarListBinding, CarListViewModel>()
 
         setListAdapter()
     }
+
     //endregion
 
+
     //region BaseActivity overridden methods
+
     override fun getBindingVariable(): Int {
         return BR.viewModel
     }
@@ -49,7 +53,11 @@ class CarListActivity : BaseActivity<ActivityCarListBinding, CarListViewModel>()
         carListViewModel = ViewModelProviders.of(this, viewModelFactory).get(CarListViewModel::class.java!!)
         return carListViewModel
     }
+
     //endregion
+
+
+    //region class functions
 
     private fun initVars() {
         carListBinding = getViewDataBinding()
@@ -63,19 +71,27 @@ class CarListActivity : BaseActivity<ActivityCarListBinding, CarListViewModel>()
 
     }
 
+    //endregion
+
+
     //region CarListAdapter.CarListListener overridden methods
+
     override fun onClick(view: View, viewModel: CarListItemViewModel) {
         // TODO Handle any navigation events if user clicks on a list item
         // This is not implemented currently because we do not have to solve such a problem statement
     }
+
     //endregion
 
+
     //region CarListNavigator overridden methods
+
     override fun openCarDetail() {
         startActivity(CarMapActivity.newIntent(this))
     }
 
     override fun handleError(throwable: Throwable) {
     }
+
     // endregion
 }

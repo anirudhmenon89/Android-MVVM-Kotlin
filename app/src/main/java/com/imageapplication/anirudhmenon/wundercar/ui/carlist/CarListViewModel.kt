@@ -2,6 +2,7 @@ package com.imageapplication.anirudhmenon.wundercar.ui.carlist
 
 import android.databinding.ObservableArrayList
 import android.util.Log
+import com.imageapplication.anirudhmenon.wundercar.ui.WunderApplication
 import com.imageapplication.anirudhmenon.wundercar.ui.base.BaseNavigator
 import com.imageapplication.anirudhmenon.wundercar.ui.base.BaseViewModel
 import com.imageapplication.anirudhmenon.wundercar.ui.data.model.api.CarDetails
@@ -27,6 +28,9 @@ class CarListViewModel : BaseViewModel<CarListNavigator>() {
             override fun onResponse(call: Call<CarDetails>?, response: Response<CarDetails>?) {
                 setIsLoading(false)
                 setCarDetails(response?.body())
+                if (response != null) {
+                    WunderApplication.getInstance().carDetails = response.body()!!.copy()
+                }
             }
         })
     }

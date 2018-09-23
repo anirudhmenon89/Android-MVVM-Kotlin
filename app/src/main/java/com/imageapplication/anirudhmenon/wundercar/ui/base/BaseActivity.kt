@@ -15,9 +15,6 @@ abstract class BaseActivity<DB : ViewDataBinding, VM : BaseViewModel<out BaseNav
     private lateinit var viewDataBinding: DB
     private lateinit var viewModel: VM
 
-    /**
-     * Override this method to set binding variable
-     */
     abstract fun getBindingVariable(): Int
 
     @LayoutRes
