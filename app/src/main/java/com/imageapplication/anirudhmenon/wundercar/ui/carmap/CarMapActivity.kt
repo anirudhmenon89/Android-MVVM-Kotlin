@@ -1,12 +1,29 @@
 package com.imageapplication.anirudhmenon.wundercar.ui.carmap
 
+import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.imageapplication.anirudhmenon.wundercar.BR
+import com.imageapplication.anirudhmenon.wundercar.R
+import com.imageapplication.anirudhmenon.wundercar.databinding.ActivityCarMapBinding
+import com.imageapplication.anirudhmenon.wundercar.ui.base.BaseActivity
+import com.imageapplication.anirudhmenon.wundercar.ui.carlist.CarListViewModel
+import com.imageapplication.anirudhmenon.wundercar.ui.carlist.recyclerview.CarListAdapter
+import com.imageapplication.anirudhmenon.wundercar.ui.utils.ViewModelProviderFactory
 
-class CarMapActivity: AppCompatActivity() {
+class CarMapActivity: BaseActivity<ActivityCarMapBinding, CarMapViewModel>(), OnMapReadyCallback {
+
+    private lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private lateinit var carMapViewModel: CarMapViewModel
+
+    private lateinit var carMapBinding: ActivityCarMapBinding
 
     companion object {
         /**
@@ -19,9 +36,52 @@ class CarMapActivity: AppCompatActivity() {
         }
     }
 
+
+    //region Activity lifecycle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        initVars()
+
+        carMapBinding.mapView.onCreate(savedInstanceState)
+        carMapBinding.mapView.getMapAsync(this)
 
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        carMapBinding.mapView.onDestroy()
+    }
+    //endregion
+
+
+    //region BaseActivity overridden methods
+    override fun getBindingVariable(): Int {
+        return BR.viewModel
+    }
+
+    override fun getLayoutId(): Int {
+        return R.layout.activity_car_map
+    }
+
+    override fun getViewModel(): CarMapViewModel {
+        viewModelFactory = ViewModelProviderFactory(CarMapViewModel());
+        carMapViewModel = ViewModelProviders.of(this, viewModelFactory).get(CarMapViewModel::class.java!!)
+        return carMapViewModel
+    }
+    //endregion
+
+
+    //region class functions
+
+    private fun initVars() {
+        carMapBinding = getViewDataBinding()
+    }
+
+    //endregion
+
+    //region Overridden methods from OnMapReadyCallback
+    override fun onMapReady(googleMap: GoogleMap?) {
+        Log.i("TAG", "Map ready")
+    }
+    //endregion
 }
