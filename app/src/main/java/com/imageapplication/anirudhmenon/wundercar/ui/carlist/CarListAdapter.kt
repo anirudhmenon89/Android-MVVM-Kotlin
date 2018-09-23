@@ -35,7 +35,7 @@ class CarListAdapter(carList: ArrayList<CarInfo>) : RecyclerView.Adapter<CarList
         notifyDataSetChanged()
     }
 
-    inner class CarListHolder: BaseViewHolder {
+    inner class CarListHolder: BaseViewHolder, CarListItemViewModel.CarListItemClick {
 
         private lateinit var carItemViewModel : CarListItemViewModel
         private var viewBinding: ItemCarListBinding
@@ -46,9 +46,13 @@ class CarListAdapter(carList: ArrayList<CarInfo>) : RecyclerView.Adapter<CarList
 
         override fun bind(position: Int) {
             val carInfo = carList!!.get(position)
-            carItemViewModel = CarListItemViewModel(carInfo)
+            carItemViewModel = CarListItemViewModel(carInfo, this)
             viewBinding.viewModel = carItemViewModel
             viewBinding.executePendingBindings()
+        }
+
+        override fun onItemClick() {
+            Log.i("TAG,", "User clicks on item")
         }
 
     }
