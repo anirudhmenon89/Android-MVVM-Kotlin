@@ -12,7 +12,7 @@ data class CarInfo(
         val interior: String,
         val name: String,
         val vin: String,
-        val coordinates: ArrayList<Float>)
+        val coordinates: ArrayList<Double>)
 
 
 

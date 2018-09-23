@@ -23,13 +23,15 @@ import com.imageapplication.anirudhmenon.wundercar.ui.carlist.recyclerview.CarLi
 import com.imageapplication.anirudhmenon.wundercar.ui.utils.ViewModelProviderFactory
 import kotlinx.android.synthetic.main.activity_car_map.*
 
-class CarMapActivity: BaseActivity<ActivityCarMapBinding, CarMapViewModel>(), OnMapReadyCallback {
+class CarMapActivity: BaseActivity<ActivityCarMapBinding, CarMapViewModel>(), OnMapReadyCallback, CarMapNavigator {
 
     private lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var carMapViewModel: CarMapViewModel
 
     private lateinit var carMapBinding: ActivityCarMapBinding
+
+    private lateinit var googleMap: GoogleMap
 
     companion object {
         /**
@@ -77,7 +79,7 @@ class CarMapActivity: BaseActivity<ActivityCarMapBinding, CarMapViewModel>(), On
     }
     //endregion
 
-    //region BaseActivity overridden methods
+    //region BaseActivity overriden methods
     override fun getBindingVariable(): Int {
         return BR.viewModel
     }
@@ -103,26 +105,43 @@ class CarMapActivity: BaseActivity<ActivityCarMapBinding, CarMapViewModel>(), On
     private fun initVars() {
         carMapBinding = getViewDataBinding()
 
-//        (supportFragmentManager.findFragmentById(R.id.mapView) as SupportMapFragment).getMapAsync(this)
+        carMapViewModel.setNavigator(this)
     }
 
     //endregion
 
-    //region Overridden methods from OnMapReadyCallback
+    //region Overriden methods from OnMapReadyCallback
     override fun onMapReady(googleMap: GoogleMap?) {
         if (googleMap != null) {
 
-            var ny = LatLng(40.7143528, -74.0059731)
-            val marker = googleMap.addMarker(
-                    MarkerOptions()
-                            .position(ny)
-                            .title("New York"))
-            marker.isDraggable = true
-            marker.isVisible = true
-
-            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(ny, 12F))
+            this.googleMap = googleMap
+            carMapViewModel.parseMarkers()
+//            var ny = LatLng(40.7143528, -74.0059731)
+//            val marker = googleMap.addMarker(
+//                    MarkerOptions()
+//                            .position(ny)
+//                            .title("New York"))
+//            marker.isDraggable = true
+//            marker.isVisible = true
+//
+//            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(ny, 12F))
         }
+    }
+    //endregion
 
+    //region Overriden methods from CarMapNavigator
+    override fun renderMarkerOnMap(list: MutableList<CoordinateData>) {
+        list.iterator().forEach {
+            val point = LatLng(it.lat, it.long)
+            val options = MarkerOptions()
+            options.position(point)
+            options.title("Some title")
+            googleMap.addMarker(options)
+        }
+    }
+
+    override fun handleError(throwable: Throwable) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
     //endregion
 }
