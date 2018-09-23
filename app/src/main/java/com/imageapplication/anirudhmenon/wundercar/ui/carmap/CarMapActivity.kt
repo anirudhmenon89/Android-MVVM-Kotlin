@@ -7,8 +7,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
 import com.imageapplication.anirudhmenon.wundercar.BR
 import com.imageapplication.anirudhmenon.wundercar.R
 import com.imageapplication.anirudhmenon.wundercar.databinding.ActivityCarMapBinding
@@ -16,6 +19,7 @@ import com.imageapplication.anirudhmenon.wundercar.ui.base.BaseActivity
 import com.imageapplication.anirudhmenon.wundercar.ui.carlist.CarListViewModel
 import com.imageapplication.anirudhmenon.wundercar.ui.carlist.recyclerview.CarListAdapter
 import com.imageapplication.anirudhmenon.wundercar.ui.utils.ViewModelProviderFactory
+import kotlinx.android.synthetic.main.activity_car_map.*
 
 class CarMapActivity: BaseActivity<ActivityCarMapBinding, CarMapViewModel>(), OnMapReadyCallback {
 
@@ -24,6 +28,8 @@ class CarMapActivity: BaseActivity<ActivityCarMapBinding, CarMapViewModel>(), On
     private lateinit var carMapViewModel: CarMapViewModel
 
     private lateinit var carMapBinding: ActivityCarMapBinding
+
+    private lateinit var googleMap: GoogleMap
 
     companion object {
         /**
@@ -41,18 +47,36 @@ class CarMapActivity: BaseActivity<ActivityCarMapBinding, CarMapViewModel>(), On
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initVars()
-
         carMapBinding.mapView.onCreate(savedInstanceState)
         carMapBinding.mapView.getMapAsync(this)
+    }
 
+    override fun onStart() {
+        super.onStart()
+        carMapBinding.mapView.onStart()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        carMapBinding.mapView.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        carMapBinding.mapView.onPause()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        carMapBinding.mapView.onStop()
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         carMapBinding.mapView.onDestroy()
+        super.onDestroy()
+
     }
     //endregion
-
 
     //region BaseActivity overridden methods
     override fun getBindingVariable(): Int {
@@ -68,20 +92,32 @@ class CarMapActivity: BaseActivity<ActivityCarMapBinding, CarMapViewModel>(), On
         carMapViewModel = ViewModelProviders.of(this, viewModelFactory).get(CarMapViewModel::class.java!!)
         return carMapViewModel
     }
-    //endregion
 
+    override fun onLowMemory() {
+        super.onLowMemory()
+        carMapBinding.mapView.onLowMemory()
+    }
+    //endregion
 
     //region class functions
 
     private fun initVars() {
         carMapBinding = getViewDataBinding()
+
+//        (supportFragmentManager.findFragmentById(R.id.mapView) as SupportMapFragment).getMapAsync(this)
     }
 
     //endregion
 
     //region Overridden methods from OnMapReadyCallback
-    override fun onMapReady(googleMap: GoogleMap?) {
-        Log.i("TAG", "Map ready")
+    override fun onMapReady(gm: GoogleMap?) {
+        if (gm != null) {
+            this.googleMap = gm
+            googleMap.setMinZoomPreference(12F)
+            var ny = LatLng(40.7143528, -74.0059731)
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(ny))
+        }
+
     }
     //endregion
 }
