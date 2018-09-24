@@ -6,18 +6,23 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class CarMapViewModel: BaseViewModel<CarMapNavigator>() {
+class CarMapViewModel : BaseViewModel<CarMapNavigator>() {
 
 
     fun parseMarkers() {
         Observable.just(WunderApplication.getInstance().carDetails.placemarks)
                 .flatMapIterable { list -> list }
-                .map { list -> list.coordinates }
-                .map { coords -> CoordinateData(coords[1], coords[0])}
+                .map { list -> CarInfoForMap(list.coordinates, list.name) }
+                .map { dataInfo -> CoordinateData(dataInfo.coords[1], dataInfo.coords[0], dataInfo.name) }
                 .toList()
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({data -> navigator.get()!!.renderMarkerOnMap(data)})
+                .subscribe { data -> navigator.get()!!.renderMarkerOnMap(data) }
     }
+
+    /**
+     * Data class that holds the complex information about latitude, longitude and car name
+     */
+    data class CarInfoForMap(val coords: ArrayList<Double>, val name: String)
 
 }

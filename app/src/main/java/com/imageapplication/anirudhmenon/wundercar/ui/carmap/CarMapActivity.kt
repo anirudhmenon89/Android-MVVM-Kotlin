@@ -5,25 +5,24 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.imageapplication.anirudhmenon.wundercar.BR
 import com.imageapplication.anirudhmenon.wundercar.R
 import com.imageapplication.anirudhmenon.wundercar.databinding.ActivityCarMapBinding
 import com.imageapplication.anirudhmenon.wundercar.ui.base.BaseActivity
-import com.imageapplication.anirudhmenon.wundercar.ui.carlist.CarListViewModel
-import com.imageapplication.anirudhmenon.wundercar.ui.carlist.recyclerview.CarListAdapter
 import com.imageapplication.anirudhmenon.wundercar.ui.utils.ViewModelProviderFactory
-import kotlinx.android.synthetic.main.activity_car_map.*
+import com.google.android.gms.maps.model.CameraPosition
+
+
 
 class CarMapActivity: BaseActivity<ActivityCarMapBinding, CarMapViewModel>(), OnMapReadyCallback, CarMapNavigator {
+
+    private var clickLat: Double = 0.0
+    private var clickLong: Double = 0.0
 
     private lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -34,12 +33,17 @@ class CarMapActivity: BaseActivity<ActivityCarMapBinding, CarMapViewModel>(), On
     private lateinit var googleMap: GoogleMap
 
     companion object {
+        val CO_ORDINATE_LAT = "co_ordinate_lat"
+        val CO_ORDINATE_LONG = "co_ordinate_long"
+
         /**
          * Use this method if you need to start CarMapActivity from anywhere
          * Use default values for parameters if you need to pass extras to this intent
          */
-        fun newIntent(context: Context): Intent {
+        fun newIntent(context: Context, lat: Double? = null, long: Double? = null): Intent {
             val intent = Intent(context, CarMapActivity::class.java)
+            intent.putExtra(CO_ORDINATE_LAT, lat)
+            intent.putExtra(CO_ORDINATE_LONG, long)
             return intent
         }
     }
@@ -47,7 +51,10 @@ class CarMapActivity: BaseActivity<ActivityCarMapBinding, CarMapViewModel>(), On
     //region Activity lifecycle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         initVars()
+        getDataFromExtra()
+
         carMapBinding.mapView.onCreate(savedInstanceState)
         carMapBinding.mapView.getMapAsync(this)
     }
@@ -108,6 +115,21 @@ class CarMapActivity: BaseActivity<ActivityCarMapBinding, CarMapViewModel>(), On
         carMapViewModel.setNavigator(this)
     }
 
+    private fun getDataFromExtra() {
+        if (intent != null) {
+            clickLat = intent.getDoubleExtra(CO_ORDINATE_LAT, 0.0)
+            clickLong = intent.getDoubleExtra(CO_ORDINATE_LONG, 0.0)
+        }
+    }
+
+    private fun zoomToMap(point: LatLng) {
+        val cameraPosition = CameraPosition.Builder()
+                .target(point)
+                .zoom(17f)
+                .build()
+        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+    }
+
     //endregion
 
     //region Overriden methods from OnMapReadyCallback
@@ -122,11 +144,16 @@ class CarMapActivity: BaseActivity<ActivityCarMapBinding, CarMapViewModel>(), On
     //region Overriden methods from CarMapNavigator
     override fun renderMarkerOnMap(list: MutableList<CoordinateData>) {
         list.iterator().forEach {
+
             val point = LatLng(it.lat, it.long)
             val options = MarkerOptions()
             options.position(point)
-            options.title("Some title")
+            options.title(it.title)
             googleMap.addMarker(options)
+
+            if (it.lat == clickLat && it.long == clickLong) {
+                zoomToMap(point)
+            }
         }
     }
 

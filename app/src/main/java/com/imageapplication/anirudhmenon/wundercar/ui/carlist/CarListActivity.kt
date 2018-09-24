@@ -74,8 +74,12 @@ class CarListActivity : BaseActivity<ActivityCarListBinding, CarListViewModel>()
     //region CarListAdapter.CarListListener overridden methods
 
     override fun onClick(view: View, viewModel: CarListItemViewModel) {
-        // TODO Handle any navigation events if user clicks on a list item
-        // This is not implemented currently because we do not have to solve such a problem statement
+        startActivity(
+                CarMapActivity.newIntent(this,
+                        viewModel.coordinates[1],
+                        viewModel.coordinates[0]
+                )
+        )
     }
 
     //endregion
@@ -83,10 +87,11 @@ class CarListActivity : BaseActivity<ActivityCarListBinding, CarListViewModel>()
     //region CarListNavigator overridden methods
 
     override fun openCarDetail() {
-        startActivity(CarMapActivity.newIntent(this))
+        TODO("No such functionality yet")
     }
 
     override fun handleError(throwable: Throwable) {
+        TODO("Handle error from API here")
     }
 
     // endregion

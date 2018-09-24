@@ -20,7 +20,7 @@ class CarListAdapter(carList: ArrayList<CarInfo>, listener: CarListListener) : R
         return CarListHolder(blogViewBinding)
     }
 
-    override fun getItemCount() = if (carList == null) 0 else carList!!.size
+    override fun getItemCount() = carList.size
 
     override fun onBindViewHolder(holder: CarListHolder?, position: Int) {
         holder!!.bind(position)
@@ -42,7 +42,7 @@ class CarListAdapter(carList: ArrayList<CarInfo>, listener: CarListListener) : R
         }
 
         override fun bind(position: Int) {
-            val carInfo = carList!!.get(position)
+            val carInfo = carList[position]
             carItemViewModel = CarListItemViewModel(carInfo, this)
             viewBinding.viewModel = carItemViewModel
             viewBinding.executePendingBindings()

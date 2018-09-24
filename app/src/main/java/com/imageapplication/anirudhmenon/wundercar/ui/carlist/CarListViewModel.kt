@@ -35,10 +35,6 @@ class CarListViewModel : BaseViewModel<CarListNavigator>() {
         })
     }
 
-    fun openMapView() {
-        navigator.get()!!.openCarDetail()
-    }
-
     private fun setCarDetails(carDetail: CarDetails?) {
         carDetails.clear()
         carDetails.addAll(carDetail!!.placemarks)
