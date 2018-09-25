@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit
 interface WunderNetworkService {
 
     @GET(NetworkEndPoint.CAR_LOCATION_LIST)
-    fun getCarDetails(): Call<CarDetails>
+    fun getCarDetails(): Observable<CarDetails>
 
 
     companion object {

@@ -6,5 +6,5 @@ import retrofit2.Call
 import java.util.*
 
 interface ApiHelper {
-    fun getCarDetails(): Call<CarDetails>
+    fun getCarDetails(): Observable<CarDetails>
 }

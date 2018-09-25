@@ -29,7 +29,7 @@ abstract class BaseActivity<DB : ViewDataBinding, VM : BaseViewModel<out BaseNav
     }
 
     protected fun performDependencyInjection() {
-        // AndroidInjection.inject(this)
+         AndroidInjection.inject(this)
     }
 
     protected fun performDataBinding() {

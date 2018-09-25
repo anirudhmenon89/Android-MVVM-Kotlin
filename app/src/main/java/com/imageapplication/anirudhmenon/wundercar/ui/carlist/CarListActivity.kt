@@ -13,11 +13,13 @@ import com.imageapplication.anirudhmenon.wundercar.ui.carlist.recyclerview.CarLi
 import com.imageapplication.anirudhmenon.wundercar.ui.carlist.recyclerview.CarListItemViewModel
 import com.imageapplication.anirudhmenon.wundercar.ui.carmap.CarMapActivity
 import com.imageapplication.anirudhmenon.wundercar.ui.utils.ViewModelProviderFactory
+import javax.inject.Inject
 
 class CarListActivity : BaseActivity<ActivityCarListBinding, CarListViewModel>(),
         CarListNavigator, CarListAdapter.CarListListener {
 
-    private lateinit var carListViewModel: CarListViewModel
+    @Inject
+    lateinit var carListViewModel: CarListViewModel
 
     private lateinit var carListBinding: ActivityCarListBinding;
 
@@ -48,8 +50,8 @@ class CarListActivity : BaseActivity<ActivityCarListBinding, CarListViewModel>()
     }
 
     override fun getViewModel(): CarListViewModel {
-        viewModelFactory = ViewModelProviderFactory(CarListViewModel());
-        carListViewModel = ViewModelProviders.of(this, viewModelFactory).get(CarListViewModel::class.java!!)
+        viewModelFactory = ViewModelProviderFactory(carListViewModel);
+        carListViewModel = ViewModelProviders.of(this, viewModelFactory).get(CarListViewModel::class.java)
         return carListViewModel
     }
 

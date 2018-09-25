@@ -16,7 +16,7 @@ import com.imageapplication.anirudhmenon.wundercar.databinding.ActivityCarMapBin
 import com.imageapplication.anirudhmenon.wundercar.ui.base.BaseActivity
 import com.imageapplication.anirudhmenon.wundercar.ui.utils.ViewModelProviderFactory
 import com.google.android.gms.maps.model.CameraPosition
-
+import javax.inject.Inject
 
 
 class CarMapActivity: BaseActivity<ActivityCarMapBinding, CarMapViewModel>(), OnMapReadyCallback, CarMapNavigator {
@@ -26,7 +26,8 @@ class CarMapActivity: BaseActivity<ActivityCarMapBinding, CarMapViewModel>(), On
 
     private lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private lateinit var carMapViewModel: CarMapViewModel
+    @Inject
+    lateinit var carMapViewModel: CarMapViewModel
 
     private lateinit var carMapBinding: ActivityCarMapBinding
 
@@ -96,7 +97,7 @@ class CarMapActivity: BaseActivity<ActivityCarMapBinding, CarMapViewModel>(), On
     }
 
     override fun getViewModel(): CarMapViewModel {
-        viewModelFactory = ViewModelProviderFactory(CarMapViewModel());
+        viewModelFactory = ViewModelProviderFactory(carMapViewModel);
         carMapViewModel = ViewModelProviders.of(this, viewModelFactory).get(CarMapViewModel::class.java!!)
         return carMapViewModel
     }
