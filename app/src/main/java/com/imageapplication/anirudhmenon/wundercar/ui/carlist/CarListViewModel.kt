@@ -28,6 +28,7 @@ open class CarListViewModel(val schedulerProvider: SchedulerProvider) : BaseView
 
     private fun loadSuccess(carDetails: CarDetails) {
         setIsLoading(false)
+        isError.set(false)
         setCarDetails(carDetails)
         WunderApplication.getInstance().carDetails = carDetails
     }
@@ -35,6 +36,7 @@ open class CarListViewModel(val schedulerProvider: SchedulerProvider) : BaseView
     private fun loadError() {
         setIsLoading(false)
         showErrorScreen(true)
+        isError.set(true)
     }
 
 }

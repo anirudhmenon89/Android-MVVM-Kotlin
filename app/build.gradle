@@ -36,29 +36,29 @@ dependencies {
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'com.android.support.test:rules:1.0.2'
+    androidTestImplementation "com.android.support.test.espresso:espresso-intents:$rootProject.espressoVersion"
+    androidTestImplementation('com.android.support.test.espresso:espresso-contrib:2.0') {
+        exclude group: 'com.android.support', module: 'appcompat'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude module: 'recyclerview-v7'
+    }
 
     // android support libraries
     implementation "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
     implementation "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
     implementation "com.android.support:cardview-v7:$rootProject.supportLibraryVersion"
     implementation "com.android.support:design:$rootProject.supportLibraryVersion"
-    implementation "com.android.support:support-vector-drawable:$rootProject.supportLibraryVersion"
-    implementation "com.android.support:animated-vector-drawable:$rootProject.supportLibraryVersion"
+    implementation 'com.android.support:support-annotations:27.1.1'
 
     // Map view
-    implementation 'com.google.android.gms:play-services-maps:15.0.1'
+    implementation "com.google.android.gms:play-services-maps:$rootProject.mapServiceVersion"
 
     // network
-    implementation "com.amitshekhar.android:rx2-android-networking:$rootProject.rx2FastAndroidNetworking"
-    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
-    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
-
-    // database
-    implementation "android.arch.persistence.room:rxjava2:$rootProject.roomDatabase"
-    annotationProcessor "android.arch.persistence.room:compiler:$rootProject.roomDatabase"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofit"
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofit"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofit"
+    implementation "com.squareup.okhttp3:okhttp:$rootProject.okHttp3"
 
     // parser
     implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
@@ -66,7 +66,6 @@ dependencies {
     // dependency injection
     implementation "com.google.dagger:dagger:$rootProject.dagger2Version"
     annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.dagger2Version"
-//    annotationProcessor "com.google.dagger:dagger-android-processor:$rootProject.dagger2Version"
     implementation "com.google.dagger:dagger-android-support:$rootProject.dagger2Version"
 
     // reactive
@@ -77,7 +76,6 @@ dependencies {
     testImplementation "junit:junit:$rootProject.ext.junitVersion"
     testImplementation "org.mockito:mockito-core:$rootProject.mockitoVersion"
     testAnnotationProcessor "com.google.dagger:dagger-compiler:$rootProject.dagger2Version"
-    testImplementation 'com.squareup.okhttp3:mockwebserver:3.11.0'
 
     // UI Testing
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$rootProject.espressoVersion"
@@ -89,7 +87,8 @@ dependencies {
     implementation "android.arch.lifecycle:extensions:$rootProject.lifecycle"
     annotationProcessor "android.arch.lifecycle:compiler:$rootProject.lifecycle"
 
-    kapt 'com.android.databinding:compiler:3.1.4'
-    kapt 'com.google.dagger:dagger-android-processor:2.15'
-    kapt 'com.google.dagger:dagger-compiler:2.15'
+    // Kotlin data binding
+    kapt "com.android.databinding:compiler:$rootProject.kotlinDatabinding"
+    kapt "com.google.dagger:dagger-android-processor:$rootProject.kotlinDaggerCompiler"
+    kapt "com.google.dagger:dagger-compiler:$rootProject.kotlinDaggerCompiler"
 }

@@ -3,18 +3,92 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.imageapplication.anirudhmenon.wundercar.ui.carlist.recyclerview.CarListItemViewModel" />
 
     </data>
 
-    <TextView
-        android:id="@+id/tv_car_name"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp"
-        tools:text="Test name"
-        android:onClick="@{(view) -> viewModel.onItemClick(view, viewModel)}"
-        android:text="@{viewModel.address}"/>
+        android:onClick="@{(view) -> viewModel.onItemClick(view, viewModel)}">
+
+        <TextView
+            android:id="@+id/tv_car_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            android:paddingLeft="@dimen/padding_large"
+            android:paddingRight="@dimen/padding_large"
+            android:text="@{viewModel.address}"
+            android:textColor="@color/black"
+            android:textSize="@dimen/large"
+            tools:text="Test name" />
+
+        <LinearLayout
+            android:id="@+id/ll_interior"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/tv_car_name"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/padding_large"
+            android:paddingRight="@dimen/padding_large"
+            tools:ignore="ExtraText">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:paddingRight="@dimen/padding_medium"
+                android:textColor="@color/gray"
+                android:text="Interior" />
+
+            <ImageView
+                android:id="@+id/iv_interior"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@{viewModel.interior}"
+                android:src="@{viewModel.interior.equals(`GOOD`) ? @drawable/ic_thumbs_up : @drawable/ic_thumbs_down}" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_exterior"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/tv_car_name"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/padding_large"
+            android:paddingRight="@dimen/padding_large">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:paddingRight="@dimen/padding_medium"
+                android:textColor="@color/gray"
+                android:text="Exterior" />
+
+            <ImageView
+                android:id="@+id/iv_exterior"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@{viewModel.exterior}"
+                android:src="@{viewModel.exterior.equals(`GOOD`) ? @drawable/ic_thumbs_up : @drawable/ic_thumbs_down}" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/light_gray" />
+
+    </RelativeLayout>
 </layout>

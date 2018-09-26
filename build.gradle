@@ -36,10 +36,8 @@ ext {
     // App dependencies
     supportLibraryVersion = '27.0.2'
     gsonVersion = '2.8.2'
-    calligraphyVersion = '2.2.0'
-    glideVersion = '3.7.0'
-    roomDatabase = '1.0.0'
-    rx2FastAndroidNetworking = '1.0.1'
+    mapServiceVersion = '15.0.1'
+    okHttp3 = '3.10.0'
 
     dagger2Version = '2.14.1'
     rxjava2Version = '2.1.9'
@@ -48,6 +46,10 @@ ext {
     debugDBVersion = '1.0.3'
     timberVersion = '4.5.1'
     lifecycle = '1.1.0'
+    retrofit = '2.3.0'
+
+    kotlinDatabinding = '3.1.4'
+    kotlinDaggerCompiler = '2.15'
 
     // Test dependencies
     junitVersion = '4.12'

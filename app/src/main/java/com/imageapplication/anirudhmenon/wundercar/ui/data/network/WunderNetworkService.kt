@@ -1,6 +1,5 @@
 package com.imageapplication.anirudhmenon.wundercar.ui.data.network
 
-import com.androidnetworking.interceptors.HttpLoggingInterceptor
 import com.imageapplication.anirudhmenon.wundercar.BuildConfig
 import com.imageapplication.anirudhmenon.wundercar.ui.data.model.api.CarDetails
 import io.reactivex.Observable
@@ -24,12 +23,6 @@ interface WunderNetworkService {
         val wunderHttp: Retrofit get() {
                 if (retrofit == null) {
                     val builder = OkHttpClient.Builder()
-
-                    if (BuildConfig.DEBUG) {
-                        val loggingInterceptor = HttpLoggingInterceptor()
-                        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-                        builder.addInterceptor(loggingInterceptor)
-                    }
 
                     val okHttpClient = getOkHttpClient()
 
