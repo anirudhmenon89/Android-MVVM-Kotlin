@@ -37,6 +37,11 @@ class CarListActivity : BaseActivity<ActivityCarListBinding, CarListViewModel>()
         setListAdapter()
     }
 
+    override fun onStop() {
+        super.onStop()
+        removeObservers()
+    }
+
     //endregion
 
     //region BaseActivity overridden methods
@@ -61,6 +66,7 @@ class CarListActivity : BaseActivity<ActivityCarListBinding, CarListViewModel>()
 
     private fun initVars() {
         carListBinding = getViewDataBinding()
+        carListBinding.setLifecycleOwner(this)
 
         carListViewModel.setNavigator(this)
     }
@@ -69,6 +75,11 @@ class CarListActivity : BaseActivity<ActivityCarListBinding, CarListViewModel>()
         carListBinding.rvCarList.layoutManager = LinearLayoutManager(this)
         carListBinding.rvCarList.adapter = CarListAdapter(carListViewModel.carDetails, this)
 
+    }
+
+    fun removeObservers() {
+        carListViewModel.isLoading.removeObservers(this)
+        carListViewModel.isError.removeObservers(this)
     }
 
     //endregion

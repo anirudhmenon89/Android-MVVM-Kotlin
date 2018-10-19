@@ -6,7 +6,6 @@ import com.imageapplication.anirudhmenon.wundercar.ui.base.BaseViewModel
 import com.imageapplication.anirudhmenon.wundercar.ui.data.model.api.CarDetails
 import com.imageapplication.anirudhmenon.wundercar.ui.data.model.api.CarInfo
 import com.imageapplication.anirudhmenon.wundercar.ui.utils.rx.SchedulerProvider
-import io.reactivex.schedulers.TestScheduler
 
 open class CarListViewModel(val schedulerProvider: SchedulerProvider) : BaseViewModel<CarListNavigator>() {
 
@@ -28,7 +27,7 @@ open class CarListViewModel(val schedulerProvider: SchedulerProvider) : BaseView
 
     private fun loadSuccess(carDetails: CarDetails) {
         setIsLoading(false)
-        isError.set(false)
+        isError.postValue(false)
         setCarDetails(carDetails)
         WunderApplication.getInstance().carDetails = carDetails
     }
@@ -36,8 +35,7 @@ open class CarListViewModel(val schedulerProvider: SchedulerProvider) : BaseView
     private fun loadError() {
         setIsLoading(false)
         showErrorScreen(true)
-        isError.set(true)
+        isError.postValue(true)
     }
-
 }
 
